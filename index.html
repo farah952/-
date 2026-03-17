@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO -->
+  <title>VaultDL – Free Video Downloader | YouTube, TikTok, Instagram</title>
+  <meta name="description" content="Download videos from YouTube, TikTok, and Instagram in MP4, MP3 or GIF. Choose quality, trim clips, edit metadata — all free, no ads, no sign-up." />
+  <meta name="keywords" content="video downloader, youtube downloader, tiktok downloader, instagram downloader, mp4 downloader, mp3 downloader, free video downloader" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://vaultdl.com/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://vaultdl.com/" />
+  <meta property="og:title" content="VaultDL – Free Video Downloader" />
+  <meta property="og:description" content="Download YouTube, TikTok, and Instagram videos in seconds. Free, fast, no sign-up." />
+  <meta property="og:image" content="https://vaultdl.com/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="VaultDL – Free Video Downloader" />
+  <meta name="twitter:description" content="Download videos from YouTube, TikTok, Instagram. MP4 · MP3 · GIF. Free." />
+  <meta name="twitter:image" content="https://vaultdl.com/og-image.png" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "VaultDL",
+    "url": "https://vaultdl.com",
+    "description": "Free online video downloader supporting YouTube, TikTok, and Instagram.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ── NOISE OVERLAY ── -->
+<div class="noise" aria-hidden="true"></div>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="logo">
+    <span class="logo-icon">⬇</span>
+    <span class="logo-text">Vault<strong>DL</strong></span>
+  </div>
+  <nav class="nav" aria-label="Site navigation">
+    <a href="#features">Features</a>
+    <a href="#platforms">Platforms</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-bg-grid" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="badge">100% Free · No Sign-up · No Ads</div>
+    <h1 id="hero-heading">Download Any Video<br /><em>Instantly.</em></h1>
+    <p class="hero-sub">YouTube · TikTok · Instagram — MP4, MP3, GIF. Pick quality, trim clips, edit tags.</p>
+
+    <!-- ── MAIN DOWNLOADER CARD ── -->
+    <div class="card" id="downloader-card">
+
+      <!-- URL INPUT ROW -->
+      <div class="input-row">
+        <div class="input-wrap">
+          <span class="input-icon" aria-hidden="true">🔗</span>
+          <input
+            type="url"
+            id="video-url"
+            class="url-input"
+            placeholder="Paste a YouTube, TikTok, or Instagram URL…"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Video URL"
+          />
+          <button class="clear-btn" id="clear-btn" aria-label="Clear URL" title="Clear" style="display:none">✕</button>
+        </div>
+        <button class="fetch-btn" id="fetch-btn" aria-label="Fetch video info">
+          <span class="btn-text">Fetch</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <p class="error-msg" id="error-msg" role="alert" aria-live="polite"></p>
+
+      <!-- ── RESULTS PANEL (hidden until fetch) ── -->
+      <div class="results" id="results" hidden>
+
+        <!-- Thumbnail + Meta -->
+        <div class="meta-row">
+          <div class="thumb-wrap">
+            <img id="thumb" src="" alt="Video thumbnail" class="thumb" loading="lazy" />
+            <span class="duration-badge" id="duration-badge"></span>
+          </div>
+          <div class="meta-info">
+            <div class="platform-chip" id="platform-chip"></div>
+            <div class="editable-field">
+              <label for="edit-title">Title</label>
+              <input type="text" id="edit-title" class="edit-input" placeholder="Video title" />
+            </div>
+            <div class="editable-field">
+              <label for="edit-artist">Artist / Author</label>
+              <input type="text" id="edit-artist" class="edit-input" placeholder="Author name" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Format + Quality Row -->
+        <div class="options-row">
+          <div class="option-group">
+            <label class="option-label">Format</label>
+            <div class="pill-group" id="format-group" role="group" aria-label="Output format">
+              <button class="pill active" data-value="mp4">MP4</button>
+              <button class="pill" data-value="mp3">MP3</button>
+              <button class="pill" data-value="gif">GIF</button>
+            </div>
+          </div>
+          <div class="option-group" id="quality-group-wrap">
+            <label class="option-label">Quality</label>
+            <div class="pill-group" id="quality-group" role="group" aria-label="Video quality">
+              <button class="pill" data-value="360">360p</button>
+              <button class="pill active" data-value="720">720p</button>
+              <button class="pill" data-value="1080">1080p</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trim Row -->
+        <div class="trim-row" id="trim-row">
+          <span class="option-label">Trim</span>
+          <div class="trim-inputs">
+            <div class="time-field">
+              <label for="trim-from">From</label>
+              <input type="text" id="trim-from" class="edit-input time-input" placeholder="0:00" maxlength="7" />
+            </div>
+            <div class="trim-divider">→</div>
+            <div class="time-field">
+              <label for="trim-to">To</label>
+              <input type="text" id="trim-to" class="edit-input time-input" placeholder="end" maxlength="7" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Button -->
+        <button class="download-btn" id="download-btn">
+          <span class="dl-icon">↓</span>
+          <span id="dl-label">Download MP4 · 720p</span>
+        </button>
+
+        <!-- Progress Bar -->
+        <div class="progress-wrap" id="progress-wrap" hidden>
+          <div class="progress-bar" id="progress-bar"></div>
+          <span class="progress-text" id="progress-text">Preparing…</span>
+        </div>
+
+      </div><!-- /results -->
+    </div><!-- /card -->
+
+    <p class="disclaimer">VaultDL respects copyright. Only download content you have permission to use.</p>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section class="features-section" id="features">
+  <h2>Everything you need, nothing you don't</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">⚡</span>
+      <h3>Edge-Speed Downloads</h3>
+      <p>Powered by Cloudflare Workers at 300+ global edge locations. No waiting, no queues.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">✂</span>
+      <h3>Clip & Trim</h3>
+      <p>Specify start and end times to download only the segment you want — no editing software needed.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🎵</span>
+      <h3>MP3 Extraction</h3>
+      <p>Extract crystal-clear audio from any video and save it as an MP3 in one click.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🎞</span>
+      <h3>GIF Conversion</h3>
+      <p>Turn short clips into shareable GIFs automatically — perfect for reactions and highlights.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🏷</span>
+      <h3>Metadata Editing</h3>
+      <p>Edit title and artist tags before downloading so your files stay perfectly organised.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔒</span>
+      <h3>Privacy First</h3>
+      <p>No login, no tracking, no cookies. Your URLs are never stored beyond the request lifetime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PLATFORMS ── -->
+<section class="platforms-section" id="platforms">
+  <h2>Supported Platforms</h2>
+  <div class="platforms-row">
+    <div class="platform-pill">
+      <span>▶</span> YouTube
+    </div>
+    <div class="platform-pill">
+      <span>♪</span> TikTok
+    </div>
+    <div class="platform-pill">
+      <span>◈</span> Instagram
+    </div>
+  </div>
+  <p class="platforms-note">More platforms coming soon — Twitter/X, Facebook, Vimeo, Dailymotion.</p>
+</section>
+
+<!-- ── HOW TO USE ── -->
+<section class="howto-section">
+  <h2>How to Download in 3 Steps</h2>
+  <ol class="steps">
+    <li>
+      <span class="step-num">01</span>
+      <div>
+        <strong>Paste the URL</strong>
+        <p>Copy the link from YouTube, TikTok, or Instagram and paste it into the box above.</p>
+      </div>
+    </li>
+    <li>
+      <span class="step-num">02</span>
+      <div>
+        <strong>Choose Format & Quality</strong>
+        <p>Select MP4, MP3, or GIF. Pick a resolution. Optionally trim the clip or edit metadata.</p>
+      </div>
+    </li>
+    <li>
+      <span class="step-num">03</span>
+      <div>
+        <strong>Click Download</strong>
+        <p>Hit the download button and your file starts immediately — no waiting rooms, no captchas.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq-section" id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>Is VaultDL completely free?</summary>
+      <p>Yes. VaultDL runs on Cloudflare Workers' free tier and will always be free to use.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What video quality is available?</summary>
+      <p>We support 360p, 720p HD, and 1080p Full HD depending on what the source platform offers.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can I download private videos?</summary>
+      <p>No. VaultDL can only access publicly available videos. Private, members-only, or geo-restricted content cannot be downloaded.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How does the trimming feature work?</summary>
+      <p>Enter a start time (e.g. <code>1:30</code>) and end time (e.g. <code>2:45</code>) before downloading. The server will extract only that segment.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Are downloaded videos stored on your servers?</summary>
+      <p>No. Files are streamed directly to your browser via Cloudflare edge nodes. Nothing is stored.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is it legal to download videos?</summary>
+      <p>Downloading copyrighted content without permission may violate terms of service and local laws. Only download videos you own or have explicit permission to use.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="logo-text">Vault<strong>DL</strong></span>
+    <p>Free video downloader · Powered by Cloudflare Workers</p>
+    <p class="footer-links">
+      <a href="#">Privacy</a> ·
+      <a href="#">Terms</a> ·
+      <a href="#">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

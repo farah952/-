@@ -1,0 +1,20 @@
+name = "vaultdl"
+main = "worker.js"
+compatibility_date = "2024-04-01"
+
+# ── KV Namespace for caching & rate limiting ──
+# After running `wrangler kv:namespace create VAULTDL_CACHE`, paste the id below
+[[kv_namespaces]]
+binding = "VAULTDL_CACHE"
+id = "073d838ea9034066ac3dc41131254fa8"
+
+# ── Static assets (frontend files) ──
+[site]
+bucket = "./"
+include = ["index.html", "style.css", "app.js"]
+
+# ── Routes ──
+# Uncomment and set your domain after connecting it in Cloudflare dashboard
+# [[routes]]
+# pattern = "yourdomain.com/*"
+# zone_name = "yourdomain.com"
