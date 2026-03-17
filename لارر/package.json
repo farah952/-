@@ -1,0 +1,17 @@
+{
+  "name": "vaultdl",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VaultDL – Cloudflare Workers video downloader",
+  "main": "worker.js",
+  "scripts": {
+    "dev":    "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.3.4"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
